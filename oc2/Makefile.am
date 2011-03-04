@@ -8,7 +8,7 @@
 # $Id: Makefile.am,v 1.1 2010/05/23 21:05:33 dmh Exp $
 
 # Cause C preprocessor to search current and parent directory.
-AM_CPPFLAGS =  -I$(top_srcdir) -I$(top_srcdir)/include
+AM_CPPFLAGS =  -I$(top_srcdir) -I$(top_srcdir)/include -I$(top_srcdir)/libsrc -I.. -I../libsrc
 
 # OC Sources; include the daptab.[ch] to avoid the need for bison by user
 SRC=oc.c \
@@ -45,7 +45,7 @@ endif
 
 bison:: dap.y
 	rm -f dap.tab.c dap.tab.h
-	bison --debug -d -p dap dap.y
+	bison --debug -d -p dap $(top_srcdir)/oc/dap.y
 	mv dap.tab.c daptab.c; mv dap.tab.h daptab.h
 
 
