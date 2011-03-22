@@ -1088,6 +1088,11 @@ NC4_inq_varid(int ncid, const char *name, int *varidp)
    /* Find info for this file and group, and set pointer to each. */
    if ((retval = nc4_find_nc_grp_h5(ncid, &nc, &grp, NULL)))
       return retval;
+
+#ifdef USE_PNETCDF
+   if (nc->pnetcdf_file)
+      return ncmpi_inq_varid(nc->int_ncid, name, varidp);
+#endif
    
    /* Normalize name. */
    if ((retval = nc4_normalize_name(name, norm_name)))
