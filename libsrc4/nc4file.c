@@ -398,10 +398,11 @@ NC4_create(const char* path, int cmode, size_t initialsz, int basepe,
    /* Check the cmode for validity. */
    if (cmode & ~(NC_NOCLOBBER | NC_64BIT_OFFSET
                  | NC_NETCDF4 | NC_CLASSIC_MODEL
-                 | NC_SHARE | NC_MPIIO | NC_MPIPOSIX | NC_LOCK | NC_PNETCDF
+                 | NC_SHARE | NC_MPIIO | NC_MPIPOSIX | NC_LOCK
 		 | NC_DISKLESS
 		 | NC_WRITE /* to support diskless persistence */
-                 )
+		 | NC_PNETCDF | NC_64BIT_DATA
+		 )
        || (cmode & NC_MPIIO && cmode & NC_MPIPOSIX)
        || (cmode & NC_64BIT_OFFSET && cmode & NC_NETCDF4)
        || (cmode & (NC_MPIIO | NC_MPIPOSIX) && cmode & NC_DISKLESS)

@@ -130,6 +130,8 @@ extern "C" {
 
 #define NC_CLASSIC_MODEL 0x0100 /**< Enforce classic model. Mode flag for nc_create(). */
 #define NC_64BIT_OFFSET  0x0200  /**< Use large (64-bit) file offsets. Mode flag for nc_create(). */
+#define NC_64BIT_DATA   0x0010  /**< CDF-5 format: classic model but 64 bit
+                                 dimensions and sizes, as implemented in pnetcdf */
 
 /** \deprecated The following flag currently is ignored, but use in
  * nc_open() or nc_create() may someday support use of advisory
