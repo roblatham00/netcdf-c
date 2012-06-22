@@ -140,8 +140,10 @@ NC_check_file_type(const char *path, int use_parallel, void *mpi_info,
 	 *cdf = 1; /* netcdf classic version 1 */
       else if(magic[3] == '\002') 
 	 *cdf = 2; /* netcdf classic version 2 */
+      else if (magic[3] == '\005')
+	  *cdf = 5; /* netcdf "giant variable" classic variant, version 5 */
       else
-	 return NC_ENOTNC;
+	  return NC_ENOTNC;
    } else
 	 return NC_ENOTNC;
     
@@ -1565,7 +1567,8 @@ NC_open(const char *path, int cmode,
       /* Look at the file if it exists */
       stat = NC_check_file_type(path,useparallel,mpi_info,&cdfversion,&hdfversion);
       if(stat == NC_NOERR) {
-	 if(hdfversion != 0) {
+	      /* the parallel-netcdf backend can understand CDF-5 format */
+	 if(hdfversion != 0 || cdfversion == 5) {
 	    model = NC_DISPATCH_NC4;
 	 } else if(cdfversion != 0) {
 	    model = NC_DISPATCH_NC3;
